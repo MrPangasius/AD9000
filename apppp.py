@@ -61,4 +61,4 @@ def get_latest():
     return jsonify({"image": image_base64, "response": last_ai_response}), 200
 
 if __name__ == "__main__":
-    app.run(debug=True, host="192.168.216.31", port=5000)
+    app.run(debug=True, host="192.168.193.222", port=5000)
