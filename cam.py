@@ -3,7 +3,7 @@ import requests
 from PIL import Image
 import io
 
-SERVER_URL = "http://localhost:5000/upload" 
+SERVER_URL = "http://192.168.193.222:5000/upload" 
 
 def send_image_to_server(image):
     # (BGR) to RGB
