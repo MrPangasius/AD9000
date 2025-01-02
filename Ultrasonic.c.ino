@@ -1,34 +1,52 @@
-const int trigPin = 9;  
-const int echoPin = 10;
-int duration = 0;
-int distance = 0;
+#define TRIG_PIN 13;  
+#define ECHO_PIN 12;
+#define BEEP_PIN 11; // The PIN Should be PWM
 
+
+void Ultra() {
+  digitalWrite(TRIG_PIN, LOW);  
+  delayMicroseconds(2);  
+  digitalWrite(TRIG_PIN, HIGH);  
+  delayMicroseconds(10);  
+  digitalWrite(TRIG_PIN, LOW); 
+
+  duration = pulseIn(ECHO_PIN, HIGH);  
+
+  distance = (duration*.0343)/2;
+
+  if (distance >300 || distance < 0)
+  {
+    Serial.println("[Ultra Sonic Sensor] : Bad Reading\n\r");
+  }
+  else
+  {
+    Serial.print("[Ultra Sonic Sensor] : Distance : ");  
+    Serial.println(distance);
+    
+    if (distance < 61 && distance  > 50){
+      analogwrite(BEEP_PIN, 63)
+    }
+    if (distance < 51 && distance > 40){
+      analogwrite(BEEP_PIN, 127)
+    }
+    if (distance < 41 && distance > 20){
+      analogwrite(BEEP_PIN, 191)
+    }
+    if (distance < 21){
+      analogwrite(BEEP_PIN, 256)
+    }
+  }
+
+}
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
-  pinMode(trigPin, OUTPUT);  
-  pinMode(echoPin, INPUT);  
+  pinMode(TRIG_PIN, OUTPUT);  
+  pinMode(ECHO_PIN, INPUT);  
+  pinMode(BEEP_PIN, OUTPUT);
   Serial.begin(9600); 
 
 }
-
-// the loop function runs over and over again forever
-void loop() {
-  digitalWrite(trigPin, LOW);  
-  delayMicroseconds(2);  
-  digitalWrite(trigPin, HIGH);  
-  delayMicroseconds(10);  
-  digitalWrite(trigPin, LOW); 
-
-  duration = pulseIn(echoPin, HIGH);  
-
-  distance = (duration*.0343)/2;
-  if (distance < 0 or distance > 300)
-  {
-    Serial.print("Bad Reading...");
-  }
-  else{
-    Serial.print("Distance: ");  
-    Serial.println(distance); 
-  }
-  delay(1000);                       // wait for a second
+void loop() 
+{
+  Ultra()
 }
