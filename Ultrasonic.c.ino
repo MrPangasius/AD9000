@@ -1,9 +1,11 @@
-#define TRIG_PIN 13;  
-#define ECHO_PIN 12;
-#define BEEP_PIN 11; // The PIN Should be PWM
+#define TRIG_PIN 13  
+#define ECHO_PIN 12
+#define BEEP_PIN 11 // The PIN Should be PWM
 
 
 void Ultra() {
+  long duration;
+  long distance;
   digitalWrite(TRIG_PIN, LOW);  
   delayMicroseconds(2);  
   digitalWrite(TRIG_PIN, HIGH);  
@@ -24,16 +26,16 @@ void Ultra() {
     Serial.println(distance);
     
     if (distance < 61 && distance  > 50){
-      analogwrite(BEEP_PIN, 63)
+      analogWrite(BEEP_PIN, 63);
     }
     if (distance < 51 && distance > 40){
-      analogwrite(BEEP_PIN, 127)
+      analogWrite(BEEP_PIN, 127);
     }
     if (distance < 41 && distance > 20){
-      analogwrite(BEEP_PIN, 191)
+      analogWrite(BEEP_PIN, 191);
     }
     if (distance < 21){
-      analogwrite(BEEP_PIN, 256)
+      analogWrite(BEEP_PIN, 256);
     }
   }
 
@@ -48,5 +50,5 @@ void setup() {
 }
 void loop() 
 {
-  Ultra()
+  Ultra();
 }
